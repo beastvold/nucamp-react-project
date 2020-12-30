@@ -1,0 +1,34 @@
+renderComments(comments) {
+        if(comments) {
+            return(
+                <div className="col-md-5 m-1">
+                    
+                </div>
+            )
+        }
+    }
+
+
+renderComments(comments) {
+        if(comments) {
+            return(
+                <div className="col-md-5 m-1">
+                    <h4>Comments</h4>
+                    {comments.map(
+                        comments => {
+                            return(
+                                <div key={comments.id}>
+                                    <Card>
+                                        <CardTitle>
+                                            {comments.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}
+                                        </CardTitle>
+                                        <CardBody>
+                                            {comments.text}
+                                        </CardBody>
+                                    </Card>
+                                </div>
+                            )
+                        }
+                    )}
+                </div>
+            )
