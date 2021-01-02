@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Directory from './DirectoryComponent';
-import { CAMPSITES } from '../shared/campsites.js';
 import CampsiteInfo from './CampsiteInfoComponent';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Home from './HomeComponent';
+import Contact from './ContactComponent';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { CAMPSITES } from '../shared/campsites.js';
 
 class Main extends Component {
+    // State data for the Main app includes an array of campsite objects (soon to
+    //  be pulled more officially from a database) and whether a campsite has been
+    //  selected.
     constructor(props) {
         super(props);
         this.state = {
             campsites: CAMPSITES,
-            selectedCampsite: null
         };
     }
 
-    onCampsiteSelect(campsiteId) {
-        this.setState({selectedCampsite: campsiteId});
-    }
-
+    // This shows the high level display. Different components are rendered for
+    //  the sake of encapsulation:
+    //      ReactStrap Navbar
+    //      Our Directory component - a responsive display of campsite images and titles
+    //      Our CampsiteInfo component - more detail of a selected campsite with comments 
     render() {
+        const HomePage = () => {
+            return (
+                <Home />
+            );
+        }
         return (
             <div>
-                <Navbar dark color="primary">
-                <div className="container">
-                    <NavbarBrand href="/">NuCamp</NavbarBrand>
-                </div>
-                </Navbar>
-                <Directory campsites={this.state.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)}/>
-                <CampsiteInfo campsite={this.state.campsites.filter(campsite => campsite.id === this.state.selectedCampsite)[0]} />
+                <Header />
+                <Switch>
+                    <Route path='/home' component={HomePage} />
+                    <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />} />
+                    <Route exact path='/contactus' component={Contact} />
+                    <Redirect to='/home' />
+                </Switch>
+                <Footer />
             </div>
         );
     }
