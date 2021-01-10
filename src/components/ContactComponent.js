@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -75,7 +76,7 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="firstName" md={2}>First Name</Label>
                                 <Col md={10}>
-                                <Control.text model=".firstName" id="firstName" name="firstName"
+                                    <Control.text model=".firstName" id="firstName" name="firstName"
                                         placeholder="First Name"
                                         className="form-control"
                                         validators={{
